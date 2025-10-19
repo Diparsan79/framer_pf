@@ -5,7 +5,7 @@ export const skills: Skill[] = [
     id: 'python',
     name: 'Python',
     level: 'Beginner',
-    icon: '🐍',
+    icon: '👾',
     description: 'Learning Python fundamentals and exploring its applications'
   },
   {
