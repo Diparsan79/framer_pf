@@ -203,7 +203,7 @@ export const About: React.FC = () => {
                         marginBottom: '0.5rem'
                       }}
                     >
-                      🐍
+                      👾
                     </div>
                     <h4
                       style={{
