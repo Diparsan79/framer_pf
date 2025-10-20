@@ -9,6 +9,12 @@ const DIPARSAN_ASCII = `
 ██████  ██ ██      ██   ██ ██   ██ ███████ ██   ██ ██   ████
 `;
 
+// Simplified mobile version for better readability on small screens
+const DIPARSAN_ASCII_MOBILE = `
+D I P A R S A N
+P A T H A K
+`;
+
 interface IntroAnimationProps {
   onComplete: () => void;
 }
@@ -18,9 +24,24 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
   const [showName, setShowName] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Fix the ASCII art by properly splitting lines
-  const asciiLines = DIPARSAN_ASCII.trim().split('\n').filter(line => line.trim() !== '');
+  // Check if we're on mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Select appropriate ASCII based on screen size
+  const asciiLines = isMobile 
+    ? DIPARSAN_ASCII_MOBILE.trim().split('\n').filter(line => line.trim() !== '')
+    : DIPARSAN_ASCII.trim().split('\n').filter(line => line.trim() !== '');
 
   useEffect(() => {
     // Animate ASCII art line by line
@@ -34,10 +55,10 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
         }
         return prev + 1;
       });
-    }, 150);
+    }, isMobile ? 200 : 150); // Slower animation on mobile for better readability
 
     return () => clearInterval(asciiTimer);
-  }, [asciiLines.length]);
+  }, [asciiLines.length, isMobile]);
 
   useEffect(() => {
     if (showName) {
@@ -78,7 +99,8 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 9999,
-            overflow: 'hidden'
+            overflow: 'hidden',
+            padding: '1rem'
           }}
         >
           {/* Animated Background Gradient */}
@@ -108,20 +130,24 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
           />
 
           {/* ASCII Art Container */}
-          <div className="ascii-container" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="ascii-container" style={{ position: 'relative', zIndex: 1, maxWidth: '100%' }}>
             <pre
               className="text-mono"
               style={{
-                fontSize: 'clamp(0.5rem, 2vw, 1rem)',
-                lineHeight: 1.2,
+                fontSize: isMobile 
+                  ? 'clamp(0.3rem, 2.5vw, 0.5rem)' 
+                  : 'clamp(0.5rem, 2vw, 1rem)',
+                lineHeight: isMobile ? 1.1 : 1.2,
                 color: '#6C63FF',
                 textAlign: 'center',
                 margin: 0,
                 fontWeight: 600,
                 textShadow: '0 0 10px rgba(108, 99, 255, 0.5)',
                 overflow: 'hidden',
-                maxWidth: '90vw',
-                wordBreak: 'break-all'
+                maxWidth: '100%',
+                wordBreak: 'break-all',
+                whiteSpace: 'pre-wrap',
+                padding: '0 1rem'
               }}
             >
               {asciiLines.slice(0, currentLine + 1).map((line, index) => (
@@ -154,7 +180,9 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
                 <h1
                   className="text-gradient"
                   style={{
-                    fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+                    fontSize: isMobile 
+                      ? 'clamp(1.2rem, 5vw, 2rem)' 
+                      : 'clamp(1.5rem, 4vw, 3rem)',
                     fontWeight: 700,
                     margin: 0,
                     letterSpacing: '0.05em'
@@ -164,7 +192,9 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
                 </h1>
                 <p
                   style={{
-                    fontSize: 'clamp(1rem, 2.5vw, 1.8rem)',
+                    fontSize: isMobile 
+                      ? 'clamp(0.8rem, 3vw, 1.2rem)' 
+                      : 'clamp(1rem, 2.5vw, 1.8rem)',
                     color: '#A855F7',
                     margin: '0.5rem 0 0 0',
                     fontWeight: 500
@@ -192,7 +222,9 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
               >
                 <p
                   style={{
-                    fontSize: 'clamp(0.9rem, 2vw, 1.3rem)',
+                    fontSize: isMobile 
+                      ? 'clamp(0.7rem, 2.5vw, 1rem)' 
+                      : 'clamp(0.9rem, 2vw, 1.3rem)',
                     color: '#B4B4B8',
                     margin: 0,
                     fontStyle: 'italic',
