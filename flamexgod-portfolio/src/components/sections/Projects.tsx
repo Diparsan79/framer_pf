@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, easeOut } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { projects } from '../../data/projects';
@@ -25,7 +25,7 @@ export const Projects: React.FC = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.6, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: easeOut }
     }
   };
 
@@ -34,7 +34,7 @@ export const Projects: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' }
+      transition: { duration: 0.8, ease: easeOut }
     }
   };
 
@@ -60,7 +60,7 @@ export const Projects: React.FC = () => {
           style={{ marginBottom: '3rem' }}
         >
           <h2
-            className="text-gradient"
+            className="text-gradient section-title"
             style={{
               fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               fontWeight: 700,
@@ -148,7 +148,7 @@ export const Projects: React.FC = () => {
           animate={isInView ? "visible" : "hidden"}
           className="grid-responsive"
           style={{
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '2rem',
             maxWidth: '1200px',
             margin: '0 auto'

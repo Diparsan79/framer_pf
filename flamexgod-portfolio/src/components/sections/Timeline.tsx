@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, easeOut, easeInOut } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { timeline } from '../../data/timeline';
@@ -23,7 +23,7 @@ export const Timeline: React.FC = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.8, ease: 'easeOut' }
+      transition: { duration: 0.8, ease: easeOut }
     }
   };
 
@@ -32,7 +32,7 @@ export const Timeline: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' }
+      transition: { duration: 0.8, ease: easeOut }
     }
   };
 
@@ -40,7 +40,7 @@ export const Timeline: React.FC = () => {
     hidden: { height: 0 },
     visible: {
       height: '100%',
-      transition: { duration: 2, ease: 'easeInOut', delay: 0.5 }
+      transition: { duration: 2, ease: easeInOut, delay: 0.5 }
     }
   };
 
@@ -88,7 +88,7 @@ export const Timeline: React.FC = () => {
           style={{ marginBottom: '4rem' }}
         >
           <h2
-            className="text-gradient"
+            className="text-gradient section-title"
             style={{
               fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               fontWeight: 700,
@@ -130,6 +130,7 @@ export const Timeline: React.FC = () => {
         >
           {/* Timeline Line */}
           <div
+            className="timeline-line"
             style={{
               position: 'absolute',
               left: '2rem',
@@ -175,6 +176,7 @@ export const Timeline: React.FC = () => {
               >
                 {/* Timeline Dot */}
                 <motion.div
+                  className="timeline-dot"
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : { scale: 0 }}
                   transition={{ delay: index * 0.2 + 0.8, duration: 0.5 }}

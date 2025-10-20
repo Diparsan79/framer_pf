@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, easeOut } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export const Hero: React.FC = () => {
@@ -32,7 +32,7 @@ export const Hero: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' }
+      transition: { duration: 0.8, ease: easeOut }
     }
   };
 
@@ -40,6 +40,15 @@ export const Hero: React.FC = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: easeOut }
     }
   };
 
@@ -101,12 +110,12 @@ export const Hero: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-center"
+          className="text-center hero-content"
           style={{ position: 'relative', zIndex: 1 }}
         >
           {/* Main Name */}
           <motion.h1
-            variants={itemVariants}
+            variants={titleVariants}
             className="text-gradient"
             style={{
               fontSize: 'clamp(2.5rem, 8vw, 6rem)',
@@ -164,12 +173,13 @@ export const Hero: React.FC = () => {
               lineHeight: 1.6
             }}
           >
-            "I just give prompts to AIs and chatbots — and learn from what they answer."
+            "I just give prompts to AIs and chatbots and they do some impressive stuff."
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
+            className="hero-cta"
             style={{
               display: 'flex',
               gap: '1.5rem',

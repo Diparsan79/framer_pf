@@ -19,7 +19,8 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
   const [showTagline, setShowTagline] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
-  const asciiLines = DIPARSAN_ASCII.trim().split('\\n');
+  // Fix the ASCII art by properly splitting lines
+  const asciiLines = DIPARSAN_ASCII.trim().split('\n').filter(line => line.trim() !== '');
 
   useEffect(() => {
     // Animate ASCII art line by line
@@ -111,13 +112,16 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
             <pre
               className="text-mono"
               style={{
-                fontSize: 'clamp(0.6rem, 2vw, 1.2rem)',
+                fontSize: 'clamp(0.5rem, 2vw, 1rem)',
                 lineHeight: 1.2,
                 color: '#6C63FF',
                 textAlign: 'center',
                 margin: 0,
                 fontWeight: 600,
-                textShadow: '0 0 10px rgba(108, 99, 255, 0.5)'
+                textShadow: '0 0 10px rgba(108, 99, 255, 0.5)',
+                overflow: 'hidden',
+                maxWidth: '90vw',
+                wordBreak: 'break-all'
               }}
             >
               {asciiLines.slice(0, currentLine + 1).map((line, index) => (

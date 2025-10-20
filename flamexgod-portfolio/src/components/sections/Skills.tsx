@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, easeOut } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { skills } from '../../data/skills';
@@ -24,7 +24,7 @@ export const Skills: React.FC = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.6, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: easeOut }
     }
   };
 
@@ -33,7 +33,7 @@ export const Skills: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' }
+      transition: { duration: 0.8, ease: easeOut }
     }
   };
 
@@ -81,7 +81,7 @@ export const Skills: React.FC = () => {
           style={{ marginBottom: '4rem' }}
         >
           <h2
-            className="text-gradient"
+            className="text-gradient section-title"
             style={{
               fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               fontWeight: 700,
